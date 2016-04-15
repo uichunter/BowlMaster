@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class BowlingBall : MonoBehaviour {
-	public float ballSpeed;
+	public Vector3 ballSpeedVector;
 	Rigidbody ballRigidbody;
 	AudioSource ballSound;
 	// Use this for initialization
@@ -16,7 +16,7 @@ public class BowlingBall : MonoBehaviour {
 
 	public void BallLaunch ()
 	{
-		ballRigidbody.velocity = new Vector3 (0f, 0f, ballSpeed);
+		ballRigidbody.velocity = ballSpeedVector;
 		ballSound.Play ();
 	}
 	
