@@ -3,6 +3,7 @@ using System.Collections;
 
 public class CameraController : MonoBehaviour {
 	public GameObject ball;
+
 	Vector3 subtractVector;
 
 	// Use this for initialization

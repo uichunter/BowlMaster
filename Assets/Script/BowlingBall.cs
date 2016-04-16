@@ -10,13 +10,15 @@ public class BowlingBall : MonoBehaviour {
 	{
 		ballRigidbody = this.GetComponent<Rigidbody> ();
 		ballSound  = this.GetComponent<AudioSource>();
+		ballRigidbody.useGravity = false;
 
-		BallLaunch ();
+		//BallLaunch (ballSpeedVector);
 	}
 
-	public void BallLaunch ()
+	public void BallLaunch (Vector3 velocity)
 	{
-		ballRigidbody.velocity = ballSpeedVector;
+		ballRigidbody.useGravity = true;
+		ballRigidbody.velocity = velocity;
 		ballSound.Play ();
 	}
 	
