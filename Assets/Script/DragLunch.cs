@@ -12,7 +12,12 @@ public class DragLunch : MonoBehaviour {
 	void Start () {
 		bowlingBall =  gameObject.GetComponent<BowlingBall>();
 	}
-	
+
+	public void MoveStart (float amount)
+	{
+		bowlingBall.transform.Translate(new Vector3(amount,0f,0f));
+	}
+
 	public void DragStart(){
 		// Capture time and position of draging.
 		mousePoStart = Input.mousePosition;
@@ -28,8 +33,6 @@ public class DragLunch : MonoBehaviour {
 		if (mouseOffset.y >= 0) {
 			Vector3 newMouseOffset = new Vector3 (mouseOffset.x / timeEnd, 0f, mouseOffset.y / timeEnd);
 			bowlingBall.BallLaunch (newMouseOffset);
-			print (name+" "+timeEnd);
-			print (newMouseOffset);
 		}
 	}
 }
