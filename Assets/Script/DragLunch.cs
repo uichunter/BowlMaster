@@ -15,7 +15,19 @@ public class DragLunch : MonoBehaviour {
 
 	public void MoveStart (float amount)
 	{
-		bowlingBall.transform.Translate(new Vector3(amount,0f,0f));
+		float posTest = amount + transform.position.x;
+		float floorSizeX = 105f / 2f - transform.lossyScale.x/2;
+
+		if (bowlingBall.isStarted) {
+			Debug.LogError("The ball is launched.");
+			return;
+		}
+
+		if (posTest <= floorSizeX && posTest >= -1 * floorSizeX) {
+			bowlingBall.transform.Translate (new Vector3 (amount, 0f, 0f));
+		} else {
+			Debug.LogError(name +" start position.x is out of floor size.");
+		}
 	}
 
 	public void DragStart(){
