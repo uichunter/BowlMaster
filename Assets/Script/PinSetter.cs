@@ -4,23 +4,23 @@ using System.Collections;
 
 public class PinSetter : MonoBehaviour {
 	Pin[] pinGroup;
-	Text standingText;
-	int standCount = 0;
+	public Text standingText;
+
 
 
 	// Use this for initialization
 	void Start () {
 		pinGroup = FindObjectsOfType<Pin>();
-		standingText = GetComponent<Text>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		print(name +" "+CountStanding());
+		standingText.text = CountStanding().ToString();
 	}
 
 	public int CountStanding ()
 	{
+		int standCount = 0;
 		foreach (Pin pin in pinGroup) {
 			if (pin.isStanding()) {
 				standCount++;
