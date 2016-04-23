@@ -7,16 +7,16 @@ public class BowlingBall : MonoBehaviour {
 
 	Rigidbody ballRigidbody;
 	AudioSource ballSound;
+	Vector3 originalPosition;
 
 	// Use this for initialization
 	void Start ()
 	{
+		originalPosition = gameObject.transform.position;
 		ballRigidbody = this.GetComponent<Rigidbody> ();
 		ballSound  = this.GetComponent<AudioSource>();
 		isStarted = false;
 		ballRigidbody.useGravity = false;
-
-		//BallLaunch (ballSpeedVector);
 	}
 
 	public void BallLaunch (Vector3 velocity)
@@ -30,5 +30,10 @@ public class BowlingBall : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		
+	}
+
+	public void Reset ()
+	{
+		transform.position = originalPosition;
 	}
 }
