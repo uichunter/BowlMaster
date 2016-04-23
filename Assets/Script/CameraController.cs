@@ -3,6 +3,7 @@ using System.Collections;
 
 public class CameraController : MonoBehaviour {
 	public GameObject ball;
+	float cameraStopPosition = 1700;
 
 	Vector3 subtractVector;
 
@@ -19,7 +20,7 @@ public class CameraController : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
 	{
-		if (this.transform.position.z <= 1750) {
+		if (this.transform.position.z <= cameraStopPosition) {
 			this.transform.position = ball.transform.position + subtractVector;
 		}
 	}
