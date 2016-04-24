@@ -5,17 +5,15 @@ using System.Collections;
 public class PinSetter : MonoBehaviour {
 	Pin[] pinGroup;
 	public Text standingText;
+	public GameObject pinsPrefab;
+	public float disToRaise=40f;
 
 	private bool isBallEnterBox = false;
 	private int lastPinCount = -1;
 	private float lastChangeTime;
+	private Vector3 orignalPinsPos;
 	private BowlingBall ball;
 
-
-
-	// Use this for initialization
-	void Start () {
-	}
 	
 	// Update is called once per frame
 	void Update ()
@@ -24,6 +22,12 @@ public class PinSetter : MonoBehaviour {
 		if (isBallEnterBox) {
 			CheckPinSettle();
 		}
+		FindPinsOrignalPinsPos();
+	}
+
+	void FindPinsOrignalPinsPos(){
+		GameObject Pins  = GameObject.Find("Pins");
+		orignalPinsPos = Pins.transform.position;
 	}
 
 	void CheckPinSettle ()
@@ -86,5 +90,30 @@ public class PinSetter : MonoBehaviour {
 
 	void SetTextColor(Color color){
 		standingText.color = color;
+	}
+
+	//Methods to used by animator.
+	public void RaisePins ()
+	{
+		foreach (Pin pin in pinGroup) {
+			if (pin.isStanding()) {
+				pin.transform.Translate(new Vector3(0,disToRaise,0) ,Space.World);
+				pin.StablePins();
+				pin.setUseGravity(false);
+			}
+		}
+	}
+
+	public void LowerPins ()
+	{
+		foreach (Pin pin in pinGroup) {
+			pin.setUseGravity(true);
+		}
+	}
+
+	public void RenewPins ()
+	{
+		Vector3 renewPos = orignalPinsPos + new Vector3 (0f,40f,0f);
+		Instantiate(pinsPrefab,renewPos,Quaternion.identity);
 	}
 }
