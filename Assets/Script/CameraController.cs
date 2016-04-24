@@ -20,7 +20,7 @@ public class CameraController : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
 	{
-		if (this.transform.position.z <= cameraStopPosition) {
+		if (ball.transform.position.z <= cameraStopPosition) {
 			this.transform.position = ball.transform.position + subtractVector;
 		}
 	}
