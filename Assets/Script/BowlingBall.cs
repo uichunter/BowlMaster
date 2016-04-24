@@ -34,6 +34,10 @@ public class BowlingBall : MonoBehaviour {
 
 	public void Reset ()
 	{
+		isStarted = false;
+		ballRigidbody.useGravity = false;
 		transform.position = originalPosition;
+		ballRigidbody.velocity = Vector3.zero;
+		ballRigidbody.angularVelocity = Vector3.zero;
 	}
 }
