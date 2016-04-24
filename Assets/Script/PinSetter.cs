@@ -113,6 +113,7 @@ public class PinSetter : MonoBehaviour {
 
 	public void RenewPins ()
 	{
+		//TODO Destroy the empty Pins gameobject.
 		Vector3 renewPos = orignalPinsPos + new Vector3 (0f,40f,0f);
 		Instantiate(pinsPrefab,renewPos,Quaternion.identity);
 	}
