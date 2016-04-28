@@ -81,12 +81,6 @@ public class PinSetter : MonoBehaviour {
 
 	}
 
-	void OnTriggerExit (Collider collider)
-	{
-		if (collider.GetComponentInParent<Pin>()) {
-			Destroy(collider.transform.parent.gameObject);
-		}
-	}
 
 	void SetTextColor(Color color){
 		standingText.color = color;
