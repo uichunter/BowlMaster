@@ -23,12 +23,20 @@ public class ActionMasterTest {
 	}
 
 	[Test]
-	public void T02FirstStrikeSecondReturnTIdy ()
+	public void T02FirstMissThenSpareRetrunEndFrame ()
 	{
-		actionMaster.Bowl(10);
-		actionMaster.Bowl(4);
-		Assert.AreEqual(endFrame,actionMaster.Bowl(2));
+		actionMaster.Bowl(0);
+		Assert.AreEqual(endFrame,actionMaster.Bowl(10));
 	}
+
+	[Test]
+	public void T02AFirstMissThen10SecondFrameRetrunTidy ()
+	{
+		actionMaster.Bowl(0);
+		actionMaster.Bowl(10);
+		Assert.AreEqual(tidy,actionMaster.Bowl(2));
+	}
+
 
 	[Test]
 	public void T03ReturnResetInLastFrameWithSpare ()
@@ -44,7 +52,7 @@ public class ActionMasterTest {
 	[Test]
 	public void T04ReturnTidyInRoll19 ()
 	{
-		int[] rolls = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
+		int[] rolls = { 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2 };
 		foreach (int roll in rolls) {
 			actionMaster.Bowl(roll);
 		}
@@ -55,7 +63,7 @@ public class ActionMasterTest {
 	[Test]
 	public void T05ReturnTidyInLastFrameWithOneStrike ()
 	{
-		int[] rolls = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,10 };
+		int[] rolls = { 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2,10 };
 		foreach (int roll in rolls) {
 			actionMaster.Bowl(roll);
 		}
@@ -77,11 +85,13 @@ public class ActionMasterTest {
 	[Test]
 	public void T06AReturnEndgameInLastFrameWithTripleStrike ()
 	{
-		int[] rolls = { 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2,10,10};
+		int[] rolls = { 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2};
 		foreach (int roll in rolls) {
 			actionMaster.Bowl(roll);
 		}
 
+		Assert.AreEqual(reset,actionMaster.Bowl(10));
+		Assert.AreEqual(reset,actionMaster.Bowl(10));
 		Assert.AreEqual(endGame,actionMaster.Bowl(10));
 	}
 
@@ -110,12 +120,19 @@ public class ActionMasterTest {
 	[Test]
 	public void T09ReturnEndGameInLastFrameWithOutSpare ()
 	{
-		int[] rolls = { 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2,8};
+		int[] rolls = { 1, 2, 0, 10, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2,8};
 		foreach (int roll in rolls) {
 			actionMaster.Bowl(roll);
 		}
 
 		Assert.AreEqual(endGame,actionMaster.Bowl(1));
 	}
+
+	[Test]
+	public void T10YoutubeTest ()
+	{
+		Assert.AreEqual(endGame,actionMaster.Bowl(1));
+	}
+
 
 }
