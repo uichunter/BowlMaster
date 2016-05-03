@@ -3,18 +3,25 @@ using UnityEngine.UI;
 using System.Collections;
 
 public class PinSetter : MonoBehaviour {
-	Pin[] pinGroup;
-	public Text standingText;
+	
 	public GameObject pinsPrefab;
 	public float disToRaise=40f;
 
+	Pin[] pinGroup;
 	private bool isBallEnterBox = false;
 	private int lastPinCount = -1;
+	private int bowl;
+	private int lastPinsForActionMaster=10;
 	private float lastChangeTime;
 	private Vector3 orignalPinsPos;
 	private BowlingBall ball;
+	private ActionMaster actionMaster = new ActionMaster();
+	private Animator animator;
 
-	
+	void Start(){
+		FindPinsOrignalPinsPos();
+		animator = gameObject.GetComponent<Animator>();
+	}
 	// Update is called once per frame
 	void Update ()
 	{
@@ -22,7 +29,6 @@ public class PinSetter : MonoBehaviour {
 		if (isBallEnterBox) {
 			CheckPinSettle();
 		}
-		FindPinsOrignalPinsPos();
 	}
 
 	void FindPinsOrignalPinsPos(){
@@ -42,6 +48,8 @@ public class PinSetter : MonoBehaviour {
 
 		float settleTime = 3f;// How long to wait the pins settle down;
 		if ((Time.time - lastChangeTime) > settleTime) {
+			bowl = lastPinsForActionMaster - currentPinCount; // to calculate the number of pins konck down after settled.
+			lastPinsForActionMaster = currentPinCount;
 			PinHaveSettled ();
 		}
 	}
@@ -49,7 +57,23 @@ public class PinSetter : MonoBehaviour {
 	void PinHaveSettled ()
 	{
 		Reset ();
-		standingText.color = Color.green;
+		ActionMaster.Action action = actionMaster.Bowl(bowl);
+		print("Hit:"+bowl+" "+action);
+		switch(action){
+			case ActionMaster.Action.Tidy: 
+			animator.SetTrigger("tidyTrigger");
+			break;
+
+			case ActionMaster.Action.EndFrame:
+			case ActionMaster.Action.Reset:
+			animator.SetTrigger("resetTrigger");
+			lastPinsForActionMaster =10;// Reset the last pins number to 10;
+			break;
+
+			case ActionMaster.Action.EndGame:
+			throw new UnityException("Not reach to End Game state;");
+		}
+		SetTextColor(Color.black);;
 	}
 
 	void Reset ()
@@ -59,17 +83,17 @@ public class PinSetter : MonoBehaviour {
 		ball.Reset();
 	}
 
-	public int CountStanding ()
-	{
-		pinGroup = FindObjectsOfType<Pin>();
-		int standCount = 0;
-		foreach (Pin pin in pinGroup) {
-			if (pin.isStanding()) {
-				standCount++;
-			}
-		}
-		return standCount;
-	}
+//	public int CountStanding ()
+//	{
+//		pinGroup = FindObjectsOfType<Pin>();
+//		int standCount = 0;
+//		foreach (Pin pin in pinGroup) {
+//			if (pin.isStanding()) {
+//				standCount++;
+//			}
+//		}
+//		return standCount;
+//	}
 
 	void OnTriggerEnter (Collider collider)
 	{

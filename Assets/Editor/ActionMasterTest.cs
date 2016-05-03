@@ -131,7 +131,12 @@ public class ActionMasterTest {
 	[Test]
 	public void T10YoutubeTest ()
 	{
-		Assert.AreEqual(endGame,actionMaster.Bowl(1));
+		Assert.AreEqual(tidy,actionMaster.Bowl(8));
+		Assert.AreEqual(endFrame,actionMaster.Bowl(2));
+		Assert.AreEqual(tidy,actionMaster.Bowl(7));
+		Assert.AreEqual(endFrame,actionMaster.Bowl(3));
+		Assert.AreEqual(tidy,actionMaster.Bowl(3));
+		Assert.AreEqual(endFrame,actionMaster.Bowl(4));
 	}
 
 
