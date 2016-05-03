@@ -1,18 +1,21 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
 
 
 public class GameManager : MonoBehaviour {
 	
 
 	ActionMaster actionMaster; 
+	List<int> FrameList = new List<int>();
 
 	private GameObject pinSetterGameObject;
 	private PinSetter pinSetter;
 	private Animator animator;
 	private PinsCounter pinsCounter;
 	private BowlingBall ball;
+
 
 	
 	// Use this for initialization
@@ -55,6 +58,3 @@ public class GameManager : MonoBehaviour {
 
 }
 
-//class Frames : IList{
-//	
-//}
