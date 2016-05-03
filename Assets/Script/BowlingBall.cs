@@ -8,6 +8,7 @@ public class BowlingBall : MonoBehaviour {
 	Rigidbody ballRigidbody;
 	AudioSource ballSound;
 	Vector3 originalPosition;
+	float speed =100f;
 
 	// Use this for initialization
 	void Start ()
@@ -29,7 +30,9 @@ public class BowlingBall : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+		//Editor control mode.
+		Vector3 move = new Vector3(Input.GetAxis("Horizontal"),0,Input.GetAxis("Vertical"));
+		transform.position += move*speed * Time.deltaTime;
 	}
 
 	public void Reset ()
