@@ -10,12 +10,10 @@ public class PinSetter : MonoBehaviour {
 	Pin[] pinGroup;
 
 	private Vector3 orignalPinsPos;
-	private Animator animator;
 	private PinsCounter pinsCounter;
 
 	void Start(){
 		FindPinsOrignalPinsPos();
-		animator = gameObject.GetComponent<Animator>();
 		pinsCounter = FindObjectOfType<PinsCounter>();
 	}
 	// Update is called once per frame

@@ -4,13 +4,13 @@ using System.Collections;
 using System.Collections.Generic;
 
 
+
+
 public class GameManager : MonoBehaviour {
 	
-
 	ActionMaster actionMaster; 
-	List<int> FrameList = new List<int>();
+	List<FrameList> framlist = new List<FrameList>();
 
-	private GameObject pinSetterGameObject;
 	private PinSetter pinSetter;
 	private Animator animator;
 	private PinsCounter pinsCounter;
@@ -20,11 +20,10 @@ public class GameManager : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
-		pinSetterGameObject = GameObject.Find("PinSetter");
 		ball = FindObjectOfType<BowlingBall>();
-
-		animator = pinSetterGameObject.GetComponent<Animator>();
-		pinSetter = pinSetterGameObject.GetComponent<PinSetter>();
+	
+		pinSetter = FindObjectOfType<PinSetter>();
+		animator = pinSetter.gameObject.GetComponent<Animator>();
 		pinsCounter = FindObjectOfType<PinsCounter>();
 
 		actionMaster = new ActionMaster();
@@ -37,8 +36,16 @@ public class GameManager : MonoBehaviour {
 
 	public void SendPinFall (int pinFall)
 	{
-		ActionMaster.Action action =  actionMaster.Bowl(pinFall);
-		//Debug.Log("Hit: "+pinFall+" " + action);
+		ActionMaster.Action action = actionMaster.Bowl (pinFall);
+		framlist.Add (new FrameList (){ FrameID = actionMaster.frame + 1, RollID = 2- actionMaster.roll, PinDown = pinFall,ActionID = action});
+
+		foreach (FrameList f in framlist) {
+			Debug.Log(f);
+		}
+//		foreach (int score in ScoreMaster.ScoreList(framlist)) {
+//			print (score);
+//		}
+
 		ball.Reset();// Reset the ball;
 		switch(action){
 			case ActionMaster.Action.Tidy: 
@@ -57,4 +64,19 @@ public class GameManager : MonoBehaviour {
 	}
 
 }
+
+public class FrameList : List<FrameList>{
+	public int FrameID{get;set;}
+	public int RollID{get;set;}
+	public int PinDown {get;set;}
+	public ActionMaster.Action ActionID{get;set;}
+
+	public override string ToString ()
+	{
+		return string.Format ("[FrameList: FrameID={0}, RollID={1}, PinDown={2}, ActionID={3}]", FrameID, RollID, PinDown, ActionID);
+	} 
+
+	}
+
+
 

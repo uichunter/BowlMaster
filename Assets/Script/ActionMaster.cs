@@ -2,11 +2,13 @@
 using System.Collections;
 
 public class ActionMaster {
-	public enum Action{Tidy, Reset, EndFrame, EndGame}
-	private int roll =0;
-	private int frame =0;
+	public enum Action{Tidy, Reset, EndFrame, EndGame, Spare, Strike}
 
-	private int[,] frameList = new int[10,3];
+	public  int roll =0;
+	public  int frame =0;
+
+	int[,] frameList = new int[10,3];
+
 
 	public Action Bowl (int pins)
 	{
@@ -53,7 +55,7 @@ public class ActionMaster {
 
 		//Gneral situation.
 		if (roll == 0) {
-			roll =1;
+			roll ++;
 			return Action.Tidy;
 		} else {
 			NextFrame ();
