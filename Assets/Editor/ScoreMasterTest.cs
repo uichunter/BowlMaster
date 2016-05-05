@@ -87,4 +87,45 @@ public class ScoreMasterTest  {
 		Assert.AreEqual(guess,scoreList);
 	}
 
+	[Test]
+	public void T06AllOneBeforeFrame10 ()
+	{
+		for (int i = 1; i <= 9; i++) {
+			for (int j = 1; j <= 2; j++) {
+				frameList.Add (new FrameList{ FrameID = i, RollID = j, PinDown = 1});
+			}
+		}
+
+		scoreList = ScoreMaster.ScoreList (frameList);
+
+		int sum =0;
+		for (int i = 1; i <= 9; i++) {
+			sum += 2;
+			guess.Add(sum);
+		}
+		Assert.AreEqual(guess,scoreList);
+	}
+
+	[Test]
+	public void T07FullOneHit()
+	{
+		for (int i = 1; i <= 9; i++) {
+			for (int j = 1; j <= 2; j++) {
+				frameList.Add (new FrameList{ FrameID = i, RollID = j, PinDown = 1});
+			}
+		}
+		frameList.Add (new FrameList{ FrameID =10, RollID =1, PinDown = 1});
+		frameList.Add (new FrameList{ FrameID =10, RollID =2, PinDown = 1});
+
+		scoreList = ScoreMaster.ScoreList (frameList);
+
+		int sum =0;
+		for (int i = 1; i <= 9; i++) {
+			sum += 2;
+			guess.Add(sum);
+		}
+		guess.Add(20);
+		Assert.AreEqual(guess,scoreList);
+	}
+
 }
