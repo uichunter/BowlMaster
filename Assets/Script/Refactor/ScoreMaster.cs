@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class ScoreMaster {
-	public static List<int> ScoreList (List<FrameList> frameList)
+	public static List<int> GetScoreList (List<FrameList> frameList)
 	{
 		int score = 0;
 		List<int> scoreList = new List<int> ();

@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour {
 	List<FrameList> framlist = new List<FrameList>();
 
 	private PinSetter pinSetter;
+	private ScoreDisplay scoreDisplay;
 	private Animator animator;
 	private PinsCounter pinsCounter;
 	private BowlingBall ball;
@@ -23,6 +24,7 @@ public class GameManager : MonoBehaviour {
 		ball = FindObjectOfType<BowlingBall>();
 	
 		pinSetter = FindObjectOfType<PinSetter>();
+		scoreDisplay = FindObjectOfType<ScoreDisplay>();
 		animator = pinSetter.gameObject.GetComponent<Animator>();
 		pinsCounter = FindObjectOfType<PinsCounter>();
 
@@ -36,15 +38,14 @@ public class GameManager : MonoBehaviour {
 
 	public void SendPinFall (int pinFall)
 	{
-		ActionMaster.Action action = actionMaster.Bowl (pinFall);
+		ActionMaster.Action action = actionMaster.Bowl (pinFall);// Get frame data.
 		framlist.Add (new FrameList (){ FrameID = actionMaster.frame + 1, RollID = 2- actionMaster.roll, PinDown = pinFall,ActionID = action}); //TODO: The roll id can not reach to 3.
 
-		foreach (FrameList f in framlist) {
+
+		scoreDisplay.UpdateScore(ScoreMaster.GetScoreList(framlist));//Get scoreList from ScoreMaster and send them to score display.
+		foreach (FrameList f in framlist) {// Show each roll information;
 			Debug.Log(f);
 		}
-//		foreach (int score in ScoreMaster.ScoreList(framlist)) {
-//			print (score);
-//		}
 
 		ball.Reset();// Reset the ball;
 		switch(action){
