@@ -28,7 +28,7 @@ public class ScoreMaster {
 				score +=  frameList[i-1].PinDown + PinNow + frameList[i+1].PinDown;
 				scoreList.Add(score);
 				Debug.Log("Spare situation: "+score);
-			}else if (frameList[i].RollID == 2 && PinNow + frameList[i-1].PinDown !=10){
+			}else if (frameList[i].RollID == 2 && PinNow + frameList[i-1].PinDown <10){
 				score += PinNow + frameList[i-1].PinDown;
 				scoreList.Add(score);
 				Debug.Log("Normal situation: "+score);

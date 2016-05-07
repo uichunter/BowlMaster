@@ -15,9 +15,9 @@ public class ActionMaster {
 		frameList [frame, roll] = pins; 
 
 		//For the error input;
-		if (pins < 0 || pins > 10) {
+		if (pins < 0 || pins > 10)
 			throw new UnityException ("Invaild pins number!");
-		}
+
 
 		//Handle last frame situation.
 		if (frame == 10 - 1) {
@@ -44,7 +44,6 @@ public class ActionMaster {
 			if (roll == 2) {// Last frame last roll;
 				return Action.EndGame;
 			}
-
 		}
 
 		//Handle the strike situation.

@@ -18,6 +18,11 @@ public class ScoreMasterTest  {
 		scoreList = new List<int>();
 	}
 
+	public void AddFrame (int frameId,int rollID,int pinDown)
+	{
+		frameList.Add(new FrameList{FrameID=frameId,RollID=rollID,PinDown=pinDown});
+	}
+
 	[Test]
 	public void T01Normal(){
 		frameList.Add(new FrameList{FrameID=1,RollID=1,PinDown=1});
@@ -114,8 +119,8 @@ public class ScoreMasterTest  {
 				frameList.Add (new FrameList{ FrameID = i, RollID = j, PinDown = 1});
 			}
 		}
-		frameList.Add (new FrameList{ FrameID =10, RollID =1, PinDown = 1});
-		frameList.Add (new FrameList{ FrameID =10, RollID =2, PinDown = 1});
+		AddFrame(10,1,1);
+		AddFrame(10,2,1);
 
 		scoreList = ScoreMaster.ScoreList (frameList);
 
@@ -128,4 +133,101 @@ public class ScoreMasterTest  {
 		Assert.AreEqual(guess,scoreList);
 	}
 
+	[Test]
+	public void T08LastFrameSituationSpare ()
+	{
+		for (int i = 1; i <= 9; i++) {
+			for (int j = 1; j <= 2; j++) {
+				AddFrame(i,j,1);
+			}
+		}
+		AddFrame(10,1,1);
+		AddFrame(10,2,9);
+		AddFrame(10,3,10);
+
+		scoreList = ScoreMaster.ScoreList (frameList);
+
+		int sum =0;
+		for (int i = 1; i <= 9; i++) {
+			sum += 2;
+			guess.Add(sum);
+		}
+		guess.Add(38);
+		Assert.AreEqual(guess,scoreList);
+	}
+
+	[Test]
+	public void T09LastFrameSituation3Strike ()
+	{
+		for (int i = 1; i <= 9; i++) {
+			for (int j = 1; j <= 2; j++) {
+				AddFrame(i,j,1);
+			}
+		}
+		AddFrame(10,1,10);
+		AddFrame(10,2,10);
+		AddFrame(10,3,10);
+
+		scoreList = ScoreMaster.ScoreList (frameList);
+
+		int sum =0;
+		for (int i = 1; i <= 9; i++) {
+			sum += 2;
+			guess.Add(sum);
+		}
+		guess.Add(48);
+		Assert.AreEqual(guess,scoreList);
+	}
+
+	[Test]
+	public void T10LastFrameSituationOneMissAndSpare ()
+	{
+		for (int i = 1; i <= 9; i++) {
+			for (int j = 1; j <= 2; j++) {
+				AddFrame(i,j,1);
+			}
+		}
+		AddFrame(10,1,0);
+		AddFrame(10,2,10);
+		AddFrame(10,3,10);
+
+		scoreList = ScoreMaster.ScoreList (frameList);
+
+		int sum =0;
+		for (int i = 1; i <= 9; i++) {
+			sum += 2;
+			guess.Add(sum);
+		}
+		guess.Add(38);
+		Assert.AreEqual(guess,scoreList);
+	}
+
+	[Test]
+	public void T11InternetScore ()
+	{
+		AddFrame(1,1,10);
+		AddFrame(2,1,7);
+		AddFrame(2,2,3);
+		AddFrame(3,1,9);
+		AddFrame(3,2,0);
+		AddFrame(4,1,10);
+		AddFrame(5,1,0);
+		AddFrame(5,2,8);
+		AddFrame(6,1,8);
+		AddFrame(6,2,2);
+		AddFrame(7,1,0);
+		AddFrame(7,2,6);
+		AddFrame(8,1,10);
+		AddFrame(9,1,10);
+		AddFrame(10,1,10);
+		AddFrame(10,2,8);
+		AddFrame(10,3,1);
+
+		scoreList = ScoreMaster.ScoreList (frameList);
+
+		guess.Add(20);guess.Add(39);guess.Add(48);guess.Add(66);
+		guess.Add(74);guess.Add(84);guess.Add(90);guess.Add(120);
+		guess.Add(148);guess.Add(167);
+		Assert.AreEqual(guess,scoreList);
+	}
 }

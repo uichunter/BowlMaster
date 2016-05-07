@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour {
 	public void SendPinFall (int pinFall)
 	{
 		ActionMaster.Action action = actionMaster.Bowl (pinFall);
-		framlist.Add (new FrameList (){ FrameID = actionMaster.frame + 1, RollID = 2- actionMaster.roll, PinDown = pinFall,ActionID = action});
+		framlist.Add (new FrameList (){ FrameID = actionMaster.frame + 1, RollID = 2- actionMaster.roll, PinDown = pinFall,ActionID = action}); //TODO: The roll id can not reach to 3.
 
 		foreach (FrameList f in framlist) {
 			Debug.Log(f);
