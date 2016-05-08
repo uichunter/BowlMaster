@@ -17,7 +17,6 @@ public class ActionMaster {
 		if (pins < 0 || pins > 10)
 			throw new UnityException ("Invaild pins number!");
 
-
 		//Handle last frame situation.
 		if (frame == 10 - 1) {
 

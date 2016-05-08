@@ -40,7 +40,6 @@ public class ScoreMasterTest  {
 		frameList.Add(new FrameList{FrameID=2,RollID=1,PinDown=1});
 		frameList.Add(new FrameList{FrameID=2,RollID=2,PinDown=1});
 
-
 		guess.Add(2);
 		guess.Add(4);
 		Assert.AreEqual(guess,ScoreMaster.GetScoreList(frameList));
@@ -50,12 +49,6 @@ public class ScoreMasterTest  {
 	public void T03OneStrike(){
 		
 		frameList.Add(new FrameList{FrameID=1,RollID=1,PinDown=10});
-		//frameList.Add(new FrameList{FrameID=2,RollID=1,PinDown=1});
-		//frameList.Add(new FrameList{FrameID=2,RollID=2,PinDown=1});
-
-
-		//guess.Add(12);
-		//guess.Add(14);
 		scoreList = ScoreMaster.GetScoreList(frameList);
 		Assert.AreEqual(guess,scoreList);
 	}

@@ -36,19 +36,16 @@ public class GameManager : MonoBehaviour {
 	public void SendPinFall (int pinFall)
 	{
 		//For the real FrameID and RollID
-		int realFrameID = actionMaster.frame +1;
-		int realRollID = actionMaster.roll +1;
-
-		ActionMaster.Action action = actionMaster.Bowl (pinFall);// Get frame data.
-		framlist.Add (new FrameList (){ FrameID = realFrameID, RollID = realRollID, PinDown = pinFall,ActionID = action}); //TODO: The roll id can not reach to 3.
-//		foreach (FrameList f in framlist) {// Show each roll information;
-//			Debug.Log(f);
-//		}
-
-		scoreDisplay.UpdateScore(ScoreMaster.GetScoreList(framlist));//Get scoreList from ScoreMaster and send them to score display.
+		int realFrameID = actionMaster.frame + 1;
+		int realRollID = actionMaster.roll + 1;
 
 		ball.Reset();// Reset the ball;
-		switch(action){
+		ActionMaster.Action action = actionMaster.Bowl (pinFall);
+
+		framlist.Add (new FrameList (){ FrameID = realFrameID, RollID = realRollID, 
+										PinDown = pinFall,ActionID = action}); //Create frame list.
+								
+		switch(action){// Control the pinSetter.
 			case ActionMaster.Action.Tidy: 
 			pinSetter.SetTrigger("tidyTrigger");
 			break;
@@ -62,6 +59,7 @@ public class GameManager : MonoBehaviour {
 			case ActionMaster.Action.EndGame:
 			throw new UnityException("Not reach to End Game state;");
 		}
+			scoreDisplay.UpdateScore(ScoreMaster.GetScoreList(framlist));//Get scoreList from ScoreMaster and send them to score display.
 	}
 
 }
