@@ -16,8 +16,9 @@ public class BowlingBall : MonoBehaviour {
 		originalPosition = gameObject.transform.position;
 		ballRigidbody = this.GetComponent<Rigidbody> ();
 		ballSound  = this.GetComponent<AudioSource>();
-		isStarted = false;
-		ballRigidbody.useGravity = false;
+
+		Reset ();
+
 	}
 
 	public void BallLaunch (Vector3 velocity)
@@ -37,6 +38,7 @@ public class BowlingBall : MonoBehaviour {
 
 	public void Reset ()
 	{
+		transform.rotation = Quaternion.Euler(0,0,0);
 		isStarted = false;
 		ballRigidbody.useGravity = false;
 		transform.position = originalPosition;

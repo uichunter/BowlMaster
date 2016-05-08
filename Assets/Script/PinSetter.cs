@@ -6,6 +6,7 @@ public class PinSetter : MonoBehaviour {
 	
 	public GameObject pinsPrefab;
 	public float disToRaise=40f;
+	private Animator animator;
 
 	Pin[] pinGroup;
 
@@ -15,6 +16,7 @@ public class PinSetter : MonoBehaviour {
 	void Start(){
 		FindPinsOrignalPinsPos();
 		pinsCounter = FindObjectOfType<PinsCounter>();
+		animator = GetComponent<Animator>();
 	}
 	// Update is called once per frame
 	void Update ()
@@ -25,6 +27,12 @@ public class PinSetter : MonoBehaviour {
 	void FindPinsOrignalPinsPos(){
 		GameObject Pins  = GameObject.Find("Pins");
 		orignalPinsPos = Pins.transform.position;
+	}
+
+	//Animation part
+	public void SetTrigger (string triggerNmae)
+	{
+		animator.SetTrigger(triggerNmae);
 	}
 
 	public void RaisePins ()

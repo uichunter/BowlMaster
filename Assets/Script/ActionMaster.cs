@@ -9,7 +9,6 @@ public class ActionMaster {
 
 	int[,] frameList = new int[10,3];
 
-
 	public Action Bowl (int pins)
 	{
 		frameList [frame, roll] = pins; 

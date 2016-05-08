@@ -32,6 +32,10 @@ public class DragLunch : MonoBehaviour {
 
 	public void DragStart(){
 		// Capture time and position of draging.
+		if (bowlingBall.isStarted) {
+			Debug.LogError("The ball is launched.");
+			return;
+		}
 		mousePoStart = Input.mousePosition;
 		timeStart = Time.time;
 
@@ -39,6 +43,10 @@ public class DragLunch : MonoBehaviour {
 
 	public void DragEnd ()
 	{
+		if (bowlingBall.isStarted) {
+			Debug.LogError("The ball is launched.");
+			return;
+		}
 		// Launch.
 		mouseOffset = Input.mousePosition - mousePoStart;
 		timeEnd = Time.time - timeStart;

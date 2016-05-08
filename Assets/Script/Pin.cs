@@ -28,6 +28,7 @@ public class Pin : MonoBehaviour {
 	{
 		pinRigidbody.velocity = Vector3.zero;
 		pinRigidbody.angularVelocity = Vector3.zero;
+		gameObject.transform.rotation = Quaternion.Euler(0,0,0);
 	}
 
 }

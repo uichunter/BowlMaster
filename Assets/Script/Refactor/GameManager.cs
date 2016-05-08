@@ -13,7 +13,6 @@ public class GameManager : MonoBehaviour {
 
 	private PinSetter pinSetter;
 	private ScoreDisplay scoreDisplay;
-	private Animator animator;
 	private PinsCounter pinsCounter;
 	private BowlingBall ball;
 
@@ -25,9 +24,7 @@ public class GameManager : MonoBehaviour {
 	
 		pinSetter = FindObjectOfType<PinSetter>();
 		scoreDisplay = FindObjectOfType<ScoreDisplay>();
-		animator = pinSetter.gameObject.GetComponent<Animator>();
 		pinsCounter = FindObjectOfType<PinsCounter>();
-
 		actionMaster = new ActionMaster();
 	}
 	
@@ -38,24 +35,27 @@ public class GameManager : MonoBehaviour {
 
 	public void SendPinFall (int pinFall)
 	{
-		ActionMaster.Action action = actionMaster.Bowl (pinFall);// Get frame data.
-		framlist.Add (new FrameList (){ FrameID = actionMaster.frame + 1, RollID = 2- actionMaster.roll, PinDown = pinFall,ActionID = action}); //TODO: The roll id can not reach to 3.
+		//For the real FrameID and RollID
+		int realFrameID = actionMaster.frame +1;
+		int realRollID = actionMaster.roll +1;
 
+		ActionMaster.Action action = actionMaster.Bowl (pinFall);// Get frame data.
+		framlist.Add (new FrameList (){ FrameID = realFrameID, RollID = realRollID, PinDown = pinFall,ActionID = action}); //TODO: The roll id can not reach to 3.
+//		foreach (FrameList f in framlist) {// Show each roll information;
+//			Debug.Log(f);
+//		}
 
 		scoreDisplay.UpdateScore(ScoreMaster.GetScoreList(framlist));//Get scoreList from ScoreMaster and send them to score display.
-		foreach (FrameList f in framlist) {// Show each roll information;
-			Debug.Log(f);
-		}
 
 		ball.Reset();// Reset the ball;
 		switch(action){
 			case ActionMaster.Action.Tidy: 
-			animator.SetTrigger("tidyTrigger");
+			pinSetter.SetTrigger("tidyTrigger");
 			break;
 
 			case ActionMaster.Action.EndFrame:
 			case ActionMaster.Action.Reset:
-			animator.SetTrigger("resetTrigger");
+			pinSetter.SetTrigger("resetTrigger");
 			pinsCounter.SetLastPinsForActionMaster(10);// Reset the last pins number to 10;
 			break;
 

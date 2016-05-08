@@ -7,31 +7,24 @@ public class ScoreMaster {
 	{
 		int score = 0;
 		List<int> scoreList = new List<int> ();
-//		foreach (FrameList frame in frameList) {
-//			score += frame.PinDown;
-//			if (frame.RollID == 2) {
-//				scoreList.Add (score);
-//			}
-//		}
-
-		//score = scoreList[scoreList.Capacity -1];// Bug: Index out of range.
-
 
 		for (int i = 0; i < frameList.Count; i++) {
+			int pinNow = frameList [i].PinDown;
+			int frameListSize = frameList.Count;
+			int currentRollID = frameList [i].RollID;
 
-			int PinNow = frameList[i].PinDown;
-			if (PinNow == 10 && frameList [i].RollID == 1 && i<frameList.Count-1) {// Handle the Strike situation
-				score += PinNow + frameList[i+1].PinDown+frameList[i+2].PinDown;
-				Debug.Log("Strike situation: "+score);
+			if (pinNow == 10 && currentRollID == 1 && i < frameListSize - 1) {// Handle the Strike situation
+				//Debug.Log("Strike situation: "+score);
+				score += pinNow + frameList[i+1].PinDown+frameList[i+2].PinDown;
 				scoreList.Add(score);
-			}else if (frameList[i].RollID == 2 && PinNow + frameList[i-1].PinDown ==10 && i<frameList.Count-1){// Handle Spare situation.
-				score +=  frameList[i-1].PinDown + PinNow + frameList[i+1].PinDown;
+			}else if (currentRollID == 2 && i< frameListSize -1 && pinNow + frameList[i-1].PinDown ==10){// Handle Spare situation.
+				score +=  frameList[i-1].PinDown + pinNow + frameList[i+1].PinDown;
 				scoreList.Add(score);
-				Debug.Log("Spare situation: "+score);
-			}else if (frameList[i].RollID == 2 && PinNow + frameList[i-1].PinDown <10){
-				score += PinNow + frameList[i-1].PinDown;
+				//Debug.Log("Spare situation: "+score);
+			}else if (currentRollID == 2 && pinNow + frameList[i-1].PinDown <10){
+				score += pinNow + frameList[i-1].PinDown;
 				scoreList.Add(score);
-				Debug.Log("Normal situation: "+score);
+				//Debug.Log("Normal situation: "+score);
 			}
 		}
 		return scoreList;
