@@ -22,9 +22,8 @@ public class ScoreDisplay : MonoBehaviour {
 
 	public void UpdateScore (List<int> scoreList)
 	{
-		int scoreListSize = scoreList.Count;
-		if (scoreListSize > 0) {
-			for (int i = 0; i < scoreListSize; i++) {
+		if (scoreList.Count > 0) {
+			for (int i = 0; i < scoreList.Count; i++) {
 				displayList [i].text = scoreList [i].ToString ();
 			}
 		}
